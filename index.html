@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js "></script>
+    </head>
+    <body>
+        <div class="bar_chart"></div>
+        <style>
+            div .bar {
+                display: inline-block;
+                width: 2em;
+                margin-right: 2px;
+                background-color: teal;
+            }
+        </style>
+        <script type="text/javascript">
+        {
+            const bar_dataset = [25, 7, 5, 26, 11, 8, 25, 14, 23, 19,
+            14, 11, 22, 29, 11, 13, 12, 17, 18, 10,
+            24, 18, 25, 9, 3 ];
+            
+            d3.select('.bar_chart').selectAll("div")
+                .data(bar_dataset)
+                .enter().insert("div")
+                  .attr("class", "bar")
+                  .style("height", (d) => d*4 + "px")
+        }
+        </script>
+        
+                
+        <div class="data_table"></div>
+        <script type="text/javascript">
+        {
+            const matrix = [
+                [11975,  5871, 8916, 2868],
+                [ 1951, 10048, 2060, 6171],
+                [ 8010, 16145, 8090, 8045],
+                [ 1013,   990,  940, 6907]
+            ];
+            
+            const tr = d3.select(".data_table")
+                .append("table")
+                .selectAll("tr")
+                .data(matrix)
+                .enter().append("tr");
+                
+            const td = tr.selectAll("td")
+                .data((d) =>  d)
+                .enter().append("td")
+                  .text((d) => d);
+        }
+        </script>
+        
+                
+        <div class="pumpkin_chart"></div>
+        <style>
+            svg .pumpkin {
+                fill: yellow;
+                stroke: orange;
+                stroke-width: 3;
+            }
+        </style>
+        <script type="text/javascript">
+        {
+            const pumpkin_dataset = [6, 24, 9, 32, 2];
+            
+            let [w, h] = [600, 100]
+            
+            const svg_pumpkin = d3.select('.pumpkin_chart')
+                .insert("svg")
+                  .attr("width", w)
+                  .attr("height", h)
+                  
+            svg_pumpkin.selectAll("circle")
+            .data(pumpkin_dataset)
+            .enter().insert("circle")
+                .attr("class", "pumpkin")
+                .attr("cx", (d, i) => ((i+1)/(pumpkin_dataset.length+1))*w)
+                .attr("cy", (d, i) => h/2)
+                .attr("r", (d) => d+"px")
+        }
+        </script>
+        
+        <div class="svg_chart"></div>
+        <style>
+            svg .svg_bar {
+                fill: teal;
+            }
+        </style>
+        <script type="text/javascript">
+        {
+            const bar_dataset = [25, 7, 5, 26, 11, 8, 25, 14, 23, 19,
+            14, 11, 22, 29, 11, 13, 12, 17, 18, 10,
+            24, 18, 25, 9, 3 ];
+            
+            const [w, h, padding] = [850, 200, 2]
+            
+            const svg_chart = d3.select('.svg_chart')
+                .insert("svg")
+                  .attr("width", w)
+                  .attr("height", h)
+                  
+            svg_chart.selectAll("rect")
+            .data(bar_dataset)
+            .enter().insert("rect")
+                .attr("class", "svg_bar")
+                .attr("x", (d, i) => i * (w/bar_dataset.length))
+                .attr("y", (d, i) => h-d*4)
+                .attr("width", w / bar_dataset.length - padding )
+                .attr("height", (d) => d*4);
+        }
+        </script>
+        
+    </body>
+</html> 
